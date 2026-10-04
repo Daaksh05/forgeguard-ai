@@ -60,7 +60,9 @@
 ## 🚦 Current Project Status
 
 - [x] Initial repository scaffolding and clean architecture setup.
-- [ ] **Data Ingestion & Pipelines:** Sample sensors telemetry and maintenance manual ingestion *(Planned)*.
+- [x] **AMD/ROCm Environment Setup & Verification Tooling:** Verification scripts and deployment guide for AMD Developer Cloud ([`docs/amd-setup.md`](file:///Users/daakshayani/Desktop/ForgeGuard%20AI/docs/amd-setup.md)).
+- [x] **Data Foundation & Pipelines:** Industrial telemetry schema, 100-row time-series bearing dataset, failure scenarios, and maintenance SOPs ([`data/sensors/`](file:///Users/daakshayani/Desktop/ForgeGuard%20AI/data/sensors/), [`data/maintenance_docs/`](file:///Users/daakshayani/Desktop/ForgeGuard%20AI/data/maintenance_docs/)).
+
 - [ ] **AI Modules:**
   - [ ] `ai/vision/`: Visual anomaly/defect detection *(Planned)*.
   - [ ] `ai/anomaly_detection/`: Sensor stream anomaly detection *(Planned)*.
@@ -68,7 +70,24 @@
   - [ ] `ai/agent/`: Multimodal reasoning & operator recommendation agent *(Planned)*.
 - [ ] **Backend Services:** API gateway and inference orchestration layer *(Planned)*.
 - [ ] **Frontend Application:** Real-time industrial dashboard & incident explorer *(Planned)*.
-- [ ] **AMD/ROCm Acceleration:** Running targeted AI workloads on AMD GPU / ROCm stack *(Planned)*.
+- [ ] **AMD Hardware Execution:** Live execution of models on AMD Developer Cloud Instinct GPUs *(Planned)*.
+
+---
+
+## ⚡ AMD / ROCm Hardware Strategy & Status
+
+ForgeGuard AI is built for the **AMD Developer Hackathon: ACT III (Intelligent Industry)**, targeting high-throughput acceleration on AMD hardware.
+
+### Hardware Execution Status
+- **Verified**:
+  - AMD verification tooling created and functional ([`docs/verify_amd.py`](file:///Users/daakshayani/Desktop/ForgeGuard%20AI/docs/verify_amd.py)).
+  - AMD Developer Cloud setup guide and ROCm 6.x deployment specifications completed ([`docs/amd-setup.md`](file:///Users/daakshayani/Desktop/ForgeGuard%20AI/docs/amd-setup.md)).
+- **Not yet verified**:
+  - Local workstation verification (Host is macOS/Apple Silicon; ROCm Linux kernel runtime is not natively supported on macOS).
+- **Planned**:
+  - Running visual defect detection on AMD Instinct GPU instances (ADC).
+  - Accelerating embedding generation and vector search for technical maintenance RAG on ROCm.
+  - Sensor anomaly inference batch evaluation on AMD compute units.
 
 ---
 
@@ -89,9 +108,13 @@ forgeguard-ai/
 │   ├── sensors/              # Telemetry streams (temperature, vibration, pressure, etc.)
 │   └── maintenance_docs/     # Standard operating procedures & maintenance manuals
 └── docs/                     # Architecture diagrams, specifications, & hackathon deliverables
+    ├── amd-setup.md          # AMD Developer Cloud & ROCm deployment guide
+    ├── verify_amd.py         # Automated AMD/ROCm detection & verification script
+    └── README.md             # Documentation index
 ```
 
 ---
 
 ## 🔒 Notes
-*All AI models, backend logic, frontend components, and AMD/ROCm hardware optimizations are currently marked as **Planned** and will be implemented incrementally in subsequent phases.*
+*All AI models, backend logic, and frontend components are currently marked as **Planned** and will be implemented incrementally in subsequent phases.*
+
