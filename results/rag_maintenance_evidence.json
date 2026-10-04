@@ -1,0 +1,36 @@
+{
+  "query": "What should I inspect when vibration and temperature increase?",
+  "total_chunks_searched": 23,
+  "top_k": 3,
+  "retrieval_method": "Lexical BM25 (Explainable Term Frequency / IDF)",
+  "results_count": 3,
+  "results": [
+    {
+      "source_document": "SOP-MNT-PUMP-042",
+      "chunk_id": "SOP-MNT-PUMP-042_chk_007",
+      "section": "Standard Operating Procedure: Centrifugal Pump Bearing Maintenance & Inspection > 4. Inspection & Maintenance Procedures > 4.1 Step-by-Step Bearing Inspection",
+      "retrieved_content": "## 4. Inspection & Maintenance Procedures\n\n### 4.1 Step-by-Step Bearing Inspection\n1. **Auditory & Ultrasonic Check**:\n   - Apply ultrasonic contact probe to the top of the drive-end bearing housing.\n   - Normal reading: $<45\\text{ dB}$. If $>60\\text{ dB}$ with rhythmic popping, inner ring defect is present.\n2. **Thermal Imaging & Contact Probe**:\n   - Measure temperature at 3 points: Drive-end housing, Non-drive-end housing, and Motor frame.\n   - Temperature gradient between DE and NDE bearing should not exceed $12^\\circ\\text{C}$.\n3. **Lubrication Film & Seal Inspection**:\n   - Inspect outer labyrinth seals for grease leakage, weeping, or black residue.\n   - Clean the grease relief valve and inspect purged lubricant for metallic particles using a magnetic wand.\n4. **Coupling & Shaft Runout**:\n   - Remove coupling guard and check flexible elastomeric spider insert for shredding or angular misalignment ($<0.05\\text{ mm}$ permissible).",
+      "relevance_score": 3.5331,
+      "retrieval_query": "What should I inspect when vibration and temperature increase?",
+      "source_path": "data/maintenance_docs/pump_bearing_maintenance.md"
+    },
+    {
+      "source_document": "SOP-MNT-PUMP-042",
+      "chunk_id": "SOP-MNT-PUMP-042_chk_003",
+      "section": "Standard Operating Procedure: Centrifugal Pump Bearing Maintenance & Inspection > 2. Maintenance Intervals & Schedule",
+      "retrieved_content": "## 2. Maintenance Intervals & Schedule\n\n| Frequency | Service Type | Mandatory Tasks |\n| :--- | :--- | :--- |\n| **Daily (Shift Walk)** | Visual & Audio Check | Inspect seal leakage, listen for grinding/whining, check housing thermometer gauge. |\n| **Weekly (150 Hours)** | Condition Telemetry | Log vibration RMS, acoustic emission dB, and motor current draw. |\n| **Monthly (500 Hours)** | Lubrication Service | Inspect grease purge port, purge old grease, re-lubricate with 25g NLGI Grade 2 Polyurea grease. |\n| **Annual (4,000 Hours)** | Major Overhaul | Bearing removal, raceway wear analysis, shaft runout inspection, dynamic laser alignment. |\n\n---",
+      "relevance_score": 3.2507,
+      "retrieval_query": "What should I inspect when vibration and temperature increase?",
+      "source_path": "data/maintenance_docs/pump_bearing_maintenance.md"
+    },
+    {
+      "source_document": "visual_evidence_spec",
+      "chunk_id": "visual_evidence_spec_chk_007",
+      "section": "ForgeGuard AI \u2014 Visual Evidence & Computer Vision Specification > 2. Visual Defect Catalog > 2.5 Flexible Coupling Misalignment & Shredding (`DEFECT_COUPLING_WEAR`)",
+      "retrieved_content": "### 2.5 Flexible Coupling Misalignment & Shredding (`DEFECT_COUPLING_WEAR`)\n- **Camera Observation**:\n  - Black rubber/polyurethane shavings, elastomer dust on baseplate, or visible angular gap between motor and pump coupling hubs.\n- **Severity Rating**: `HIGH`\n- **Relationship to Bearing Degradation**:\n  - Misalignment imparts severe radial and axial shock loads directly onto the drive-end bearing, cutting bearing lifespan by over 80%.\n- **Telemetry Correlation**:\n  - Correlates with elevated 1X/2X `vibration` and slight increase in motor `current`.\n\n---",
+      "relevance_score": 3.1868,
+      "retrieval_query": "What should I inspect when vibration and temperature increase?",
+      "source_path": "data/maintenance_docs/visual_evidence_spec.md"
+    }
+  ]
+}
