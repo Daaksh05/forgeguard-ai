@@ -1,0 +1,128 @@
+{
+  "machine_id": "PUMP_001",
+  "mode": "DEMO",
+  "description": "Synthetic visual inspection timeline demonstrating progressive bearing failure.",
+  "scenarios": {
+    "stage_1_normal": {
+      "machine_id": "PUMP_001",
+      "image_id": "IMG_PUMP_001_BASELINE_001",
+      "timestamp": "2026-10-04T09:30:00Z",
+      "overall_visual_status": "NORMAL",
+      "max_severity": "NORMAL",
+      "findings_count": 1,
+      "findings": [
+        {
+          "machine_id": "PUMP_001",
+          "image_id": "IMG_PUMP_001_BASELINE_001",
+          "timestamp": "2026-10-04T09:30:00Z",
+          "defect_type": "NORMAL_OPERATION",
+          "confidence": 0.98,
+          "severity": "NORMAL",
+          "region": {
+            "x": 0.0,
+            "y": 0.0,
+            "width": 1.0,
+            "height": 1.0
+          },
+          "visual_evidence": "Camera frame shows intact epoxy enamel coating across bearing housing; labyrinth shaft seal is dry with zero fluid egress; flexible coupling aligned with zero particulate debris.",
+          "possible_implication": "Nominal baseline machine appearance; no visual indicators of mechanical or thermal distress.",
+          "mode": "DEMO"
+        }
+      ],
+      "summary": "Visual inspection of PUMP_001 confirms normal exterior condition.",
+      "mode": "DEMO"
+    },
+    "stage_2_incipient": {
+      "machine_id": "PUMP_001",
+      "image_id": "IMG_PUMP_001_INCIPIENT_002",
+      "timestamp": "2026-10-04T12:00:00Z",
+      "overall_visual_status": "DEFECT_DETECTED",
+      "max_severity": "MEDIUM",
+      "findings_count": 2,
+      "findings": [
+        {
+          "machine_id": "PUMP_001",
+          "image_id": "IMG_PUMP_001_INCIPIENT_002",
+          "timestamp": "2026-10-04T12:00:00Z",
+          "defect_type": "DEFECT_OIL_LEAK",
+          "confidence": 0.92,
+          "severity": "MEDIUM",
+          "region": {
+            "x": 0.42,
+            "y": 0.55,
+            "width": 0.18,
+            "height": 0.22
+          },
+          "visual_evidence": "Dark, viscous fluid weeping and droplet trails radiating from the drive-end labyrinth seal interface onto the pump pedestal baseplate.",
+          "possible_implication": "Active lubricant seal weeping indicating grease depletion and loss of hydrodynamic lubrication film in the drive-end bearing cavity.",
+          "mode": "DEMO"
+        },
+        {
+          "machine_id": "PUMP_001",
+          "image_id": "IMG_PUMP_001_INCIPIENT_002",
+          "timestamp": "2026-10-04T12:00:00Z",
+          "defect_type": "DEFECT_SEAL_CONTAMINATION",
+          "confidence": 0.88,
+          "severity": "MEDIUM",
+          "region": {
+            "x": 0.4,
+            "y": 0.5,
+            "width": 0.15,
+            "height": 0.16
+          },
+          "visual_evidence": "Frayed elastomeric seal lip with dark grit and slurry particulate caking around the shaft entry collar.",
+          "possible_implication": "Environmental seal barrier compromised; high risk of abrasive particulate ingress into the bearing raceway accelerating 3-body abrasive wear.",
+          "mode": "DEMO"
+        }
+      ],
+      "summary": "Visual inspection of PUMP_001 identified 2 finding(s): DEFECT_OIL_LEAK, DEFECT_SEAL_CONTAMINATION with maximum severity MEDIUM.",
+      "mode": "DEMO"
+    },
+    "stage_3_severe": {
+      "machine_id": "PUMP_001",
+      "image_id": "IMG_PUMP_001_CRITICAL_003",
+      "timestamp": "2026-10-04T15:30:00Z",
+      "overall_visual_status": "CRITICAL_DEFECT",
+      "max_severity": "CRITICAL",
+      "findings_count": 2,
+      "findings": [
+        {
+          "machine_id": "PUMP_001",
+          "image_id": "IMG_PUMP_001_CRITICAL_003",
+          "timestamp": "2026-10-04T15:30:00Z",
+          "defect_type": "DEFECT_THERMAL_DISCOLOR",
+          "confidence": 0.96,
+          "severity": "CRITICAL",
+          "region": {
+            "x": 0.35,
+            "y": 0.28,
+            "width": 0.28,
+            "height": 0.32
+          },
+          "visual_evidence": "Severe dark brown and blackened thermal discoloration centered on the cast-iron drive-end bearing housing with visible paint blistering and peeling.",
+          "possible_implication": "Prolonged extreme internal heat generation (>90\u00b0C surface temperature) from severe metal-to-metal raceway spalling and imminent bearing seizure.",
+          "mode": "DEMO"
+        },
+        {
+          "machine_id": "PUMP_001",
+          "image_id": "IMG_PUMP_001_CRITICAL_003",
+          "timestamp": "2026-10-04T15:30:00Z",
+          "defect_type": "DEFECT_OIL_LEAK",
+          "confidence": 0.94,
+          "severity": "HIGH",
+          "region": {
+            "x": 0.4,
+            "y": 0.52,
+            "width": 0.24,
+            "height": 0.26
+          },
+          "visual_evidence": "Substantial dark grease puddle pooling beneath drive-end bearing housing with continuous viscous run-off.",
+          "possible_implication": "Complete failure of labyrinth grease retention; bearing cavity is severely starved of lubricant.",
+          "mode": "DEMO"
+        }
+      ],
+      "summary": "Visual inspection of PUMP_001 identified 2 finding(s): DEFECT_THERMAL_DISCOLOR, DEFECT_OIL_LEAK with maximum severity CRITICAL.",
+      "mode": "DEMO"
+    }
+  }
+}
