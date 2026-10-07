@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --background: #080b0e;
+  --panel: #10151a;
+  --panel-raised: #141a20;
+  --line: #252e36;
+  --muted: #84919c;
+  --text: #e7edf1;
+  --lime: #c7f36b;
+  --amber: #f3b94f;
+  --red: #ff685e;
+  --green: #78d79a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-panel: var(--panel);
+  --color-panel-raised: var(--panel-raised);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+  --color-text: var(--text);
+  --color-lime: var(--lime);
+  --color-amber: var(--amber);
+  --color-danger: var(--red);
+  --color-good: var(--green);
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 82% 0%, rgba(64, 93, 54, 0.12), transparent 28rem),
+    var(--background);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+button,
+select,
+input {
+  font: inherit;
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--lime);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba(199, 243, 107, 0.3);
+}
+
+.mono {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+.grid-background {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.scrollbar-thin {
+  scrollbar-color: #37434c transparent;
+  scrollbar-width: thin;
+}
