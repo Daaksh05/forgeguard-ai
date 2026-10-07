@@ -24,9 +24,11 @@ class Document:
         return asdict(self)
 
 
-def extract_document_metadata(content: str, file_path: Path) -> Tuple_Title_Id_Meta:
-    pass
-
+def extract_document_metadata(
+    content: str, file_path: Path
+) -> tuple[str, str, Dict[str, Any]]:
+    loader = DocumentLoader()
+    return loader._extract_metadata(content, file_path)
 
 class DocumentLoader:
     """
