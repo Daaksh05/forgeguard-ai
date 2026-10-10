@@ -118,3 +118,9 @@ forgeguard-ai/
 ## 🔒 Notes
 *All AI models, backend logic, and frontend components are currently marked as **Planned** and will be implemented incrementally in subsequent phases.*
 
+
+## Development Checkpoint
+
+- Operator dashboard and FastAPI integration implemented.
+- End-to-end validation is the next development milestone.
+- AMD Instinct GPU execution remains pending cloud access and hardware verification.
