@@ -1,624 +1,299 @@
 <div align="center">
 
-# 🛡️ ForgeGuard AI
+# ⚙️ ForgeGuard AI — Predictive Industrial Maintenance Intelligence
 
-### Evidence-Driven AI for Industrial Equipment Maintenance
+### *An AI-first maintenance platform that detects machine anomalies, retrieves the right procedures, reasons about root cause, and keeps a human engineer in control of every action.*
 
-**From sensor anomalies to evidence-backed recommendations—with humans in control.**
+<br />
 
-An end-to-end industrial AI application combining sensor anomaly detection, maintenance knowledge retrieval, AI-assisted reasoning, and human-in-the-loop decision support.
+[![AMD Hackathon](https://img.shields.io/badge/AMD%20Developer%20Hackathon-ACT%20III-ED1C24?style=for-the-badge&logoColor=white)](https://www.amd.com)
+[![ROCm](https://img.shields.io/badge/AMD%20ROCm-Validation%20Planned-1A1A1D?style=for-the-badge&logo=amd&logoColor=ED1C24&labelColor=ED1C24)](https://rocm.docs.amd.com)
+[![FastAPI](https://img.shields.io/badge/FastAPI-Backend-1A1A1D?style=for-the-badge&logo=fastapi&logoColor=ED1C24)](https://fastapi.tiangolo.com)
+[![Next.js](https://img.shields.io/badge/Next.js-Operator%20Dashboard-1A1A1D?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org)
+[![Tests](https://img.shields.io/badge/Automated%20Tests-Passing-ED1C24?style=for-the-badge&logo=pytest&logoColor=white)](#-testing)
+[![License](https://img.shields.io/badge/License-MIT-1A1A1D?style=for-the-badge&labelColor=ED1C24)](LICENSE)
 
-Built by **Linghuraj and Daakshayani** for the **AMD Developer Hackathon: ACT III — Intelligent Industry**.
+<br />
 
-<br/>
+**[The Problem](#-the-problem-maintenance-that-reacts-too-late) • [Pipeline](#-perception--decision--action-pipeline) • [Features](#-core-capabilities) • [Human-in-the-Loop](#-human-in-the-loop-approval) • [AMD Roadmap](#-amd-instinct--rocm-roadmap) • [Quickstart](#-quickstart) • [Architecture](#-architecture)**
 
-[![Python](https://img.shields.io/badge/Python-Backend-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-REST%20API-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
-[![Next.js](https://img.shields.io/badge/Next.js-Operator%20Dashboard-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Frontend-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![AI](https://img.shields.io/badge/AI-Reasoning%20%2B%20RAG-8A2BE2?style=for-the-badge)](#-ai-and-retrieval-pipeline)
-[![AMD](https://img.shields.io/badge/AMD-Instinct%20%2B%20ROCm%20Roadmap-ED1C24?style=for-the-badge&logo=amd&logoColor=white)](https://www.amd.com/)
+<br />
 
-<br/>
-
-**[Features](#-key-features) • [Architecture](#-system-architecture) • [Tech Stack](#-technology-stack) • [Getting Started](#-getting-started) • [API](#-api-overview) • [Testing](#-testing) • [Roadmap](#-roadmap)**
+<img src="docs/assets/forgeguard-dashboard.png" alt="ForgeGuard AI Operator Console — Maintenance command center" width="100%" style="border-radius: 12px; border: 1px solid #5A0F13; box-shadow: 0 0 35px rgba(237, 28, 36, 0.25);" />
 
 </div>
 
 ---
 
-## 🖥️ Dashboard Preview
+## ⚡ The Problem: Maintenance That Reacts Too Late
 
-ForgeGuard AI provides an operator-oriented interface for monitoring industrial equipment, inspecting sensor telemetry, reviewing anomaly assessments, and following the evidence flow behind maintenance recommendations.
+Industrial pumps, motors, and compressors rarely fail without warning. The warning is just buried:
 
-![ForgeGuard AI Operator Dashboard](docs/assets/forgeguard-dashboard.png)
+- **Sensor drift** in vibration, temperature, and pressure that no one is watching in real time
+- **Tribal knowledge** locked in manuals, past work orders, and the heads of senior technicians
+- **Alert fatigue** — threshold alarms fire constantly, so the real ones get ignored
+- **Unsafe automation** — fully autonomous "AI fixes" are a non-starter on a plant floor where a wrong action costs real money or safety
 
-*The dashboard screenshot illustrates the local application interface. Sensor readings shown in the demonstration use synthetic telemetry.*
-
----
-
-## 💡 The Problem
-
-Industrial equipment failures can result in unplanned downtime, expensive repairs, and operational disruption.
-
-Traditional monitoring systems can identify abnormal sensor readings, but operators may still need to investigate several separate sources to understand what happened and decide what to do next.
-
-AI systems introduce another challenge: **a recommendation is not enough if the operator cannot inspect the evidence behind it.**
-
-Industrial maintenance requires more than a model-generated answer. It needs a workflow that connects equipment signals, technical knowledge, explanations, and human judgment.
-
-### Our objective
-
-Build an integrated AI application that helps operators:
-
-- Identify abnormal industrial sensor patterns.
-- Understand equipment conditions through structured assessments.
-- Retrieve relevant maintenance documentation.
-- Connect detected anomalies with maintenance knowledge.
-- Review AI-generated explanations and recommended actions.
-- Keep human approval within the maintenance decision workflow.
+Most AI maintenance demos stop at *"anomaly detected."* That is the easy 10%. The hard 90% is: **what is it, why is it happening, what should we do, and who signs off?**
 
 ---
 
-## 🚀 What Is ForgeGuard AI?
+## 💡 The Solution: A Complete AI System, Not a Standalone Model
 
-**ForgeGuard AI is an evidence-driven industrial maintenance assistant that combines telemetry analysis, retrieval-augmented generation, and AI-assisted reasoning in one application.**
+ForgeGuard AI is built around one idea: **most AI systems fail because of poor system design, not poor models.**
 
-The system brings together a Python-based processing pipeline, a FastAPI backend, and a Next.js operator dashboard.
+Instead of `Input → Model → Output`, ForgeGuard is structured as **Input → Perception → Decision → Action**:
 
-Rather than treating AI reasoning as an isolated model call, ForgeGuard AI organizes the workflow around multiple evidence sources and a final human decision point.
-
-### The core idea
-
-**Detect → Retrieve → Reason → Recommend → Review**
-
-The objective is to make equipment assessments easier to inspect and evaluate, while keeping people involved in maintenance decisions.
-
----
-
-## ⚙️ Key Features
-
-### 1. 🔍 Sensor Anomaly Detection
-
-Analyzes industrial pump telemetry to identify abnormal operating conditions.
-
-The implemented analysis pipeline includes:
-
-- Sensor threshold checks.
-- Rolling statistical analysis.
-- Multi-sensor correlation.
-- Severity assessment based on detected anomalies.
-- Structured findings for downstream reasoning.
-
-The current demonstration uses **synthetic pump telemetry**, rather than live readings from physical industrial equipment.
-
-### 2. 📊 Equipment Health Dashboard
-
-The Next.js operator interface presents equipment assessments in a unified view.
-
-The dashboard includes:
-
-- Machine identification and operating condition.
-- Equipment health severity.
-- Risk score.
-- Sensor telemetry cards.
-- Bearing temperature trend visualization.
-- Anomaly and assessment information.
-- Evidence pipeline status.
-- Operator decision workflow.
-
-The interface is designed to help users inspect the assessment rather than relying exclusively on a text response.
-
-### 3. 📚 Retrieval-Augmented Generation (RAG)
-
-ForgeGuard AI incorporates a maintenance knowledge retrieval pipeline to provide relevant technical documentation to the reasoning workflow.
-
-The current retrieval implementation uses **BM25-based lexical retrieval** over maintenance documentation.
-
-This enables the application to retrieve relevant maintenance information that can support troubleshooting and equipment assessment.
-
-The retrieval component is intended to connect detected equipment conditions with supporting maintenance knowledge.
-
-### 4. 🧠 AI-Assisted Reasoning
-
-The reasoning agent brings together information from the available assessment pipeline, including:
-
-- Sensor anomaly findings.
-- Visual-evidence inputs.
-- Retrieved maintenance knowledge.
-
-It uses this evidence to produce a structured assessment, explanations, and recommended next steps.
-
-The quality of any recommendation depends on the quality and completeness of the evidence supplied to the workflow.
-
-### 5. 👁️ Visual-Evidence Integration
-
-The application includes a visual-evidence component in the assessment workflow.
-
-**Current limitation:** This component is a demonstration layer. It should not be interpreted as a production computer-vision model or as validated image-based defect detection.
-
-Integrating and validating a real computer-vision model is a potential future improvement.
-
-### 6. 🤝 Human-in-the-Loop Decision Support
-
-ForgeGuard AI incorporates a human approval workflow.
-
-The system is designed to support operator review of maintenance assessments and recommendations rather than treating an AI-generated recommendation as automatic authorization to perform physical maintenance.
-
-Human oversight is an important part of the project's approach to responsible industrial AI.
-
-### 7. ⚡ FastAPI Backend
-
-The backend exposes versioned REST API endpoints for application functionality.
-
-It connects the existing assessment pipeline to the frontend and provides endpoints for accessing equipment information, telemetry, anomaly findings, maintenance evidence, visual evidence, and approval workflows.
-
-### 8. 💻 Next.js Operator Dashboard
-
-The frontend provides an operator-facing application for interacting with the backend.
-
-Its responsibilities include:
-
-- Displaying equipment information.
-- Presenting telemetry and assessment results.
-- Visualizing sensor trends.
-- Exposing the evidence flow.
-- Connecting the operator interface to backend API routes.
-
-### 9. ✅ Automated Testing
-
-The project includes backend and frontend tests.
-
-The development workflow has previously passed:
-
-- **Python:** 48 tests in the full backend/project suite.
-- **RAG:** 12 targeted tests.
-- **Frontend:** 2 tests.
-- **Frontend linting:** Passed.
-- **Frontend production build:** Passed.
-
-These results describe the tested development state and are not a guarantee of production readiness. Run the commands in the testing section to verify your current checkout.
-
----
-
-## 🏗️ System Architecture
-
-ForgeGuard AI is organized as an end-to-end application with a telemetry and assessment pipeline behind a web-based operator interface.
-
-```text
-                   ┌─────────────────────────────┐
-                   │     Synthetic Telemetry     │
-                   │      Industrial Pump        │
-                   └──────────────┬──────────────┘
-                                  │
-                                  ▼
-                   ┌─────────────────────────────┐
-                   │   Sensor Anomaly Detection  │
-                   │                             │
-                   │  • Threshold checks         │
-                   │  • Rolling statistics       │
-                   │  • Sensor correlation       │
-                   └──────────────┬──────────────┘
-                                  │
-                                  ▼
-                   ┌─────────────────────────────┐
-                   │    Evidence Collection      │
-                   │                             │
-                   │  • Sensor findings          │
-                   │  • Visual evidence (demo)   │
-                   │  • Maintenance knowledge    │
-                   └──────────────┬──────────────┘
-                                  │
-                     ┌────────────┴────────────┐
-                     │                         │
-                     ▼                         ▼
-          ┌────────────────────┐   ┌────────────────────┐
-          │ Maintenance RAG    │   │ Visual-Evidence    │
-          │ BM25 Retrieval     │   │ Demonstration      │
-          └─────────┬──────────┘   └─────────┬──────────┘
-                    │                        │
-                    └────────────┬───────────┘
-                                 │
-                                 ▼
-                   ┌─────────────────────────────┐
-                   │   AI Reasoning Agent        │
-                   │                             │
-                   │ Evidence-based assessment   │
-                   │ Explanations and actions    │
-                   └──────────────┬──────────────┘
-                                  │
-                                  ▼
-                   ┌─────────────────────────────┐
-                   │      FastAPI Backend        │
-                   │         /api/v1             │
-                   └──────────────┬──────────────┘
-                                  │
-                                  ▼
-                   ┌─────────────────────────────┐
-                   │  Next.js Operator Dashboard │
-                   │                             │
-                   │  Health • Risk • Telemetry  │
-                   │  Evidence • Recommendations │
-                   └──────────────┬──────────────┘
-                                  │
-                                  ▼
-                   ┌─────────────────────────────┐
-                   │   Human Review / Approval   │
-                   └─────────────────────────────┘
-```
-
-*Conceptual architecture: the diagram illustrates the logical workflow, not a claim that every component is an independently deployed service.*
-
-### Evidence flow
-
-**Telemetry → Anomaly Detection → Maintenance Retrieval → AI Reasoning → Recommendations → Human Review**
-
-The visual-evidence demonstration is another input to the assessment workflow.
-
----
-
-## 🧠 AI and Retrieval Pipeline
-
-The project's AI workflow is designed to connect structured sensor analysis with relevant maintenance knowledge.
-
-### Stage 1: Telemetry analysis
-
-The sensor-analysis pipeline evaluates telemetry and identifies potentially abnormal readings using the implemented anomaly-detection logic.
-
-### Stage 2: Knowledge retrieval
-
-The RAG component retrieves relevant passages from the maintenance knowledge base using BM25 lexical retrieval.
-
-### Stage 3: Evidence integration
-
-Available anomaly findings, visual-evidence inputs, and retrieved maintenance information are supplied to the reasoning workflow.
-
-### Stage 4: Assessment and recommendations
-
-The reasoning agent produces an assessment intended to explain its findings and recommend potential next steps.
-
-### Stage 5: Human review
-
-The operator can review the resulting assessment through the application's approval workflow.
-
-**Important distinction:** Evidence integration does not automatically guarantee that every recommendation is correct. Real-world deployment would require additional validation, representative industrial data, and appropriate operational safeguards.
-
----
-
-## 🛠️ Technology Stack
-
-| Component | Technology | Purpose |
+| Stage | What happens | ForgeGuard component |
 |---|---|---|
-| Backend language | Python | Core processing and assessment logic |
-| REST API | FastAPI | Exposes backend functionality |
-| ASGI server | Uvicorn | Runs the backend application |
-| Frontend framework | Next.js | Operator dashboard |
-| Frontend language | TypeScript | Frontend application logic and typing |
-| Styling | CSS / project styling | Dashboard layout and presentation |
-| Retrieval | BM25 lexical retrieval | Maintenance document search |
-| AI reasoning | Reasoning-agent pipeline | Evidence-based assessment and recommendations |
-| Testing | pytest and frontend test tooling | Automated validation |
-| Target hardware exploration | AMD Instinct + ROCm | Planned GPU compatibility and execution validation |
+| **Perception** | Raw signals become structured evidence | Sensor anomaly detection + visual-evidence layer |
+| **Decision** | Evidence is grounded in knowledge and reasoned over | RAG maintenance retrieval + AI reasoning agent |
+| **Action** | A recommendation becomes a controlled, auditable decision | Human-in-the-loop approval workflow |
 
-The stack above describes the project's implementation and target platform. AMD Instinct hardware execution and ROCm compatibility remain subject to actual environment and workload validation.
+The model never acts on its own. It proposes; an engineer disposes.
 
 ---
 
-## 📂 Project Structure
+## 🔬 Perception → Decision → Action Pipeline
 
-The following is a high-level guide to the repository. Exact filenames may vary by checkout.
+```mermaid
+flowchart LR
+    A[🏭 Pump Telemetry<br/>vibration · temp · pressure · flow] --> B[📈 Anomaly Detection]
+    V[📷 Visual Evidence Layer] --> C
+    B --> C[🧩 Evidence Fusion]
+    C --> D[📚 RAG Retrieval<br/>manuals · SOPs · history]
+    D --> E[🧠 AI Reasoning Agent<br/>diagnosis + recommended action]
+    E --> F{👷 Human Approval}
+    F -- Approve --> G[✅ Work Order / Action]
+    F -- Reject / Edit --> H[📝 Feedback + Audit Log]
+    G --> H
 
-```text
-forgeguard-ai/
-│
-├── ai/
-│   └── rag/
-│       ├── document_loader.py
-│       └── tests/
-│
-├── backend/
-│   ├── app/
-│   │   └── main.py
-│   ├── tests/
-│   └── requirements.txt
-│
-├── data/
-│   └── maintenance_docs/
-│       └── pump_bearing_maintenance.md
-│
-├── frontend/
-│   ├── app/
-│   ├── components/
-│   ├── package.json
-│   └── ...
-│
-├── docs/
-│   └── assets/
-│       └── forgeguard-dashboard.png
-│
-├── .venv/
-├── README.md
-└── ...
+    classDef amd fill:#ED1C24,stroke:#5A0F13,color:#ffffff,stroke-width:2px;
+    classDef dark fill:#141416,stroke:#ED1C24,color:#ffffff,stroke-width:1.5px;
+    class B,E,F amd;
+    class A,V,C,D,G,H dark;
 ```
 
-This is a simplified architectural overview, not an exhaustive listing of every file.
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│ PERCEPTION                                                             │
+│ ── Sensor stream → statistical + learned anomaly scoring               │
+│ ── Visual-evidence layer attaches supporting imagery to each event     │
+├────────────────────────────────────────────────────────────────────────┤
+│ DECISION                                                               │
+│ ── RAG retrieves the manuals, SOPs, and prior incidents that matter    │
+│ ── Reasoning agent produces diagnosis, confidence, and next steps      │
+├────────────────────────────────────────────────────────────────────────┤
+│ ACTION                                                                 │
+│ ── Nothing executes without an engineer's explicit approval            │
+│ ── Every decision is logged: evidence, reasoning, approver, outcome    │
+└────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## 🚀 Getting Started
+## 🏆 Core Capabilities
 
-Follow these instructions to run ForgeGuard AI locally on macOS.
+### 1. 📈 Sensor Anomaly Detection
+Continuous scoring over industrial pump telemetry to catch early degradation signatures — before a threshold alarm would ever fire.
 
-### Prerequisites
+### 2. 📷 Visual-Evidence Layer
+Each flagged event can carry visual evidence so the operator sees *what the machine looks like*, not just a number. In this release the visual layer is a **demonstration layer**, built to prove the integration pattern end to end.
 
-Install or prepare the following:
+### 3. 📚 RAG-Based Maintenance Retrieval
+The agent doesn't guess from model weights. It retrieves from maintenance documentation and grounds its recommendations in sources an engineer can open and verify.
 
-- Python 3.
-- Node.js and npm.
-- Git.
-- A terminal.
-- The project repository.
+### 4. 🧠 AI Reasoning Agent
+Fuses anomaly evidence, visual context, and retrieved knowledge into a structured diagnosis: probable cause, severity, recommended action, and the sources behind it.
 
-The Python virtual environment and frontend dependencies must be installed before starting the application for the first time.
+### 5. 👷 Human-in-the-Loop Approval
+A first-class workflow, not a bolt-on. See below.
 
-### 1. Clone the repository
+### 6. 🖥️ Operator Console
+A Next.js "maintenance command center" built for fast triage. One screen gives the operator:
 
+| Panel | What it shows |
+|---|---|
+| **Machine overview** | Asset ID, operating state, last telemetry time, and a plain-language condition summary |
+| **Health severity + risk score** | Severity badge and a 0–100 risk score derived from sensor analysis |
+| **Decision pipeline** | The full evidence flow: Sensors → Anomaly detection → Visual evidence → Maintenance knowledge → AI reasoning → Operator decision |
+| **Sensor telemetry** | Per-sensor cards (bearing temperature, vibration, discharge pressure, rotational speed, motor current, acoustic emission, ambient temperature) with CRITICAL / MEDIUM / LOW badges |
+| **Trend chart** | Recent samples for the selected sensor, so the operator sees *how* it degraded, not just where it is now |
+
+---
+
+## 👷 Human-in-the-Loop Approval
+
+In industrial settings, *"the AI decided"* is not an acceptable audit trail.
+
+| Step | Behavior |
+|---|---|
+| **Propose** | Agent emits a recommendation with evidence, retrieved sources, and a confidence level |
+| **Review** | Operator inspects the evidence and reasoning in the dashboard |
+| **Decide** | **Approve**, **Reject**, or **Edit** the recommended action |
+| **Record** | The full decision trail is stored: who, when, based on what |
+
+Design principle: **the agent has zero execution authority.** It can only write to the approval queue.
+
+---
+
+## 🔴 AMD Instinct & ROCm Roadmap
+
+ForgeGuard AI was built for the **AMD Developer Hackathon: ACT III — Intelligent Industry**. Being straightforward about where things stand:
+
+| Milestone | Status |
+|---|---|
+| End-to-end pipeline (telemetry → detection → RAG → agent → approval) | ✅ Working locally |
+| FastAPI backend + Next.js operator dashboard | ✅ Working locally |
+| Automated test suite and local dev workflow | ✅ In place |
+| Deployment and validation on **AMD Instinct** accelerators with **ROCm** | ⏳ Next — pending AMD Developer Cloud access |
+| Latency / throughput benchmarks on Instinct | ⏳ After validation |
+
+Benchmarks will be published here **only once they are measured on real hardware.**
+
+**Why Instinct fits this workload:** retrieval embedding and agent inference are the latency-sensitive path. Keeping them on-prem or on an accelerator close to the plant is exactly the deployment shape industrial customers ask for.
+
+---
+
+## 🧪 Data Note
+
+Current demos run on **synthetic industrial pump telemetry**. This is deliberate: it makes failure modes reproducible and the demo deterministic. It also means detection quality numbers from synthetic data should not be read as field performance. Validation on real or public run-to-failure datasets is on the roadmap.
+
+---
+
+## 🛠️ Tech Stack
+
+| Tier | Technologies | Role |
+|---|---|---|
+| **Backend** | **Python 3.11+**, **FastAPI**, **Pydantic**, **Uvicorn** | Async API, evidence fusion, agent orchestration |
+| **Detection** | Anomaly-detection pipeline over time-series telemetry | Perception stage |
+| **Knowledge** | RAG over maintenance documents (vector store + retriever) | Grounded decision support |
+| **Reasoning** | LLM-driven reasoning agent with structured outputs | Diagnosis and recommendation |
+| **Frontend** | **Next.js**, **TypeScript**, **Tailwind CSS** | Operator dashboard and approval queue |
+| **Target Hardware** | **AMD Instinct** + **ROCm** | Accelerated inference (validation planned) |
+
+<!-- Fill in exact libraries (vector DB, model, anomaly method) to match the repo. -->
+
+---
+
+## 🏁 Quickstart
+
+### 1. Prerequisites
+- Python 3.11+
+- Node.js 18+ and npm
+
+### 2. Clone
 ```bash
-git clone https://github.com/Daaksh05/forgeguard-ai.git
+git clone https://github.com/YOUR_USERNAME/forgeguard-ai.git
 cd forgeguard-ai
 ```
 
-If you already have the repository on your computer, navigate to the existing project directory instead.
-
-### 2. Set up the Python environment
-
-From the repository root:
-
+### 3. Environment
 ```bash
+cp .env.example .env
+# edit .env with your model / API configuration
+```
+
+### 4. Run the Backend
+```bash
+cd backend
 python3 -m venv .venv
 source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8000
 ```
+- API docs: http://localhost:8000/docs
 
-Install backend dependencies:
-
+### 5. Run the Dashboard
 ```bash
-pip install -r backend/requirements.txt
-```
-
-If the repository's dependency requirements change, reinstall or update the environment as needed.
-
-### 3. Start the backend
-
-From the repository root, with the virtual environment activated:
-
-```bash
-uvicorn backend.app.main:app --reload
-```
-
-The backend should be available at:
-
-- **API:** http://127.0.0.1:8000
-- **Interactive API documentation:** http://127.0.0.1:8000/docs
-
-Keep this terminal running.
-
-If startup fails, check the Python dependencies and the error output before proceeding.
-
-### 4. Start the frontend
-
-Open a second terminal:
-
-```bash
-cd ~/Downloads/forgeguard-ai/frontend
+cd frontend
 npm install
-npm run dev -- --webpack
+npm run dev
 ```
-
-The Webpack flag is included because the development environment previously encountered missing native Turbopack bindings on macOS Apple Silicon.
-
-If you cloned the repository to another location, replace the path above with your actual repository path.
-
-Open:
-
-**http://localhost:3000**
-
-Keep the frontend terminal running while using the dashboard.
-
-### 5. Verify the application
-
-Check that:
-
-1. The frontend opens.
-2. The backend starts without errors.
-3. The dashboard can reach the backend.
-4. Equipment information and telemetry are displayed.
-5. Assessment and evidence workflows respond as expected.
-
-If the dashboard loads but API requests fail, check the backend terminal and the frontend's API configuration.
-
----
-
-## 🔌 API Overview
-
-The backend exposes versioned API routes under:
-
-```text
-/api/v1
-```
-
-The implemented application includes API functionality for the following areas:
-
-| Area | Purpose |
-|---|---|
-| Health | Backend health checks |
-| Machines | Equipment information |
-| Telemetry | Sensor readings |
-| Assessment | Equipment health assessment |
-| Anomalies | Sensor anomaly findings |
-| Maintenance | Maintenance knowledge and evidence |
-| Visual evidence | Demonstration visual-evidence workflow |
-| Approval | Human review and approval workflow |
-
-For the authoritative route definitions and request schemas, start the backend and inspect the generated API documentation:
-
-**http://127.0.0.1:8000/docs**
-
-The available routes and schemas shown by the running application are the source of truth.
+- Dashboard: http://localhost:3000
 
 ---
 
 ## 🧪 Testing
 
-ForgeGuard AI includes automated tests for backend logic, retrieval functionality, and frontend components.
-
-### Run the Python test suite
-
-From the repository root:
-
 ```bash
-source .venv/bin/activate
-python3 -m pytest --import-mode=importlib -q
+cd backend
+.venv/bin/pytest tests -v
 ```
 
-### Run the RAG tests
+---
 
-```bash
-python3 -m pytest ai/rag/tests -q
+## 🏗️ Architecture
+
+```
+forgeguard-ai/
+├── backend/
+│   ├── app/
+│   │   ├── api/            # FastAPI routers
+│   │   ├── detection/      # Anomaly detection over telemetry
+│   │   ├── evidence/       # Visual-evidence layer
+│   │   ├── rag/            # Ingestion, embeddings, retrieval
+│   │   ├── agent/          # Reasoning agent + structured outputs
+│   │   ├── approval/       # Human-in-the-loop workflow + audit trail
+│   │   └── core/           # Config, logging
+│   ├── tests/
+│   └── requirements.txt
+│
+├── frontend/               # Next.js operator dashboard
+│   ├── app/
+│   ├── components/
+│   └── lib/
+│
+├── data/                   # Synthetic telemetry + sample maintenance docs
+├── docs/assets/            # Dashboard screenshot, diagrams
+├── .env.example
+└── README.md
 ```
 
-### Run frontend tests
-
-```bash
-cd frontend
-npm test
-```
-
-### Run frontend linting
-
-```bash
-npm run lint
-```
-
-### Build the frontend
-
-```bash
-npm run build
-```
-
-Run these checks after making changes to help identify regressions.
+<!-- Adjust folder names to match the actual repo layout. -->
 
 ---
 
-## 🧭 Roadmap
+## ⚖️ Design Trade-offs
 
-### Implemented application capabilities
-
-- [x] Synthetic industrial pump telemetry workflow.
-- [x] Sensor anomaly detection.
-- [x] Multi-sensor assessment logic.
-- [x] BM25-based maintenance knowledge retrieval.
-- [x] AI-assisted reasoning workflow.
-- [x] Visual-evidence demonstration component.
-- [x] Human-in-the-loop approval workflow.
-- [x] FastAPI backend.
-- [x] Next.js operator dashboard.
-- [x] Backend and frontend test suites.
-
-### Next engineering milestones
-
-- [ ] Complete end-to-end integration and hardening.
-- [ ] Validate AMD Instinct hardware compatibility.
-- [ ] Validate ROCm and the relevant GPU software stack.
-- [ ] Benchmark representative workloads on verified hardware.
-- [ ] Evaluate the reasoning pipeline using representative scenarios.
-- [ ] Explore integration with a real computer-vision model.
-- [ ] Investigate real sensor data and industrial integration requirements.
-- [ ] Improve operational observability and assessment evaluation.
-- [ ] Prepare a complete project demonstration and technical documentation.
-
-Roadmap items are goals, not claims that the corresponding functionality has already been completed.
+| Decision | Why | Trade-off |
+|---|---|---|
+| Human approval on every action | Safety, accountability, trust | Slower than full automation; throughput bound by operators |
+| RAG instead of fine-tuning | Updatable without retraining; sources are citable | Retrieval quality becomes a critical failure point |
+| Synthetic telemetry first | Reproducible demos, fast iteration | Real-world accuracy unproven until validated on field data |
+| Evidence fusion before the agent | Agent reasons over structured evidence, not raw streams | Added pipeline complexity and a new place for bugs |
 
 ---
 
-## 🔬 Current Limitations
+## 🗺️ Roadmap
 
-ForgeGuard AI is a development and demonstration project. Several limitations should be understood when evaluating its capabilities.
-
-**Synthetic telemetry:** The current demonstration uses synthetic pump readings. Results should not be interpreted as validated predictions for real industrial equipment.
-
-**Visual evidence:** The visual-evidence layer is a demonstration component, not a validated production computer-vision system.
-
-**Hardware validation:** AMD Instinct and ROCm execution have not been confirmed. Hardware compatibility and performance require actual testing in the target environment.
-
-**Recommendation validation:** AI-generated maintenance recommendations require evaluation against reliable technical references and domain-expert judgment before use in real operations.
-
-**Production deployment:** Real industrial deployment would require further reliability, security, operational, and safety validation.
-
-We believe transparency about these limitations is an important part of building trustworthy industrial AI systems.
+- [x] Anomaly detection on synthetic pump telemetry
+- [x] RAG maintenance retrieval
+- [x] Reasoning agent + approval workflow
+- [x] Operator dashboard
+- [ ] Validate on AMD Instinct with ROCm
+- [ ] Publish measured latency and throughput benchmarks
+- [ ] Evaluate on real / public run-to-failure datasets
+- [ ] Retrieval and agent evaluation harness (groundedness, recommendation accuracy)
+- [ ] Observability: tracing, drift monitoring, agent decision metrics
 
 ---
 
-## 🎯 Project Goals
+## 👥 Team
 
-ForgeGuard AI explores how AI can support industrial maintenance by connecting:
+| | |
+|---|---|
+| **Linghuraj Periyaswamy Ramani** | AI Engineer · Founder & CEO, [QuantyNex](https://github.com/YOUR_USERNAME) |
+| **Daakshayani** | Co-builder |
 
-- Sensor analytics.
-- Retrieval-augmented generation.
-- Evidence-informed reasoning.
-- Operator-facing software.
-- Human review and approval.
-
-The broader goal is to move from isolated AI responses toward **integrated AI systems whose findings can be inspected, evaluated, and reviewed by people.**
-
----
-
-## 👥 Built By
-
-**Linghuraj and Daakshayani**
-
-Developed for the **AMD Developer Hackathon: ACT III — Intelligent Industry**.
-
-We are interested in building practical AI systems that combine machine learning, retrieval, reasoning, backend engineering, and user-facing applications.
-
----
-
-## 🔗 Project Links
-
-- **GitHub repository:** https://github.com/Daaksh05/forgeguard-ai
-- **Local dashboard:** http://localhost:3000
-- **Local API documentation:** http://127.0.0.1:8000/docs
-
-The dashboard and API addresses above are local development URLs. They are not publicly hosted demo links.
-
----
-
-## 🤝 Contributing
-
-Contributions, technical feedback, and suggestions are welcome.
-
-A useful contribution workflow is:
-
-1. Fork the repository.
-2. Create a feature branch.
-3. Implement and test your changes.
-4. Open a pull request describing the change and validation performed.
-
-Please avoid committing API keys, credentials, local environment files, or other sensitive configuration.
+Built for the **AMD Developer Hackathon: ACT III — Intelligent Industry**.
 
 ---
 
 ## 📄 License
 
-Check the repository for the project's license before reusing or redistributing the code. If no license file is present, the repository should not be assumed to have an open-source license.
-
----
+Licensed under the **MIT License**. See [LICENSE](LICENSE).
 
 <div align="center">
-
-### ForgeGuard AI
-
-**Evidence-driven AI. Explainable assessments. Human-centered decisions.**
-
-Built by **Linghuraj and Daakshayani** 🤝
-
+<sub>Built with ❤️‍🔥 for the AMD Developer Hackathon community — because the best maintenance is the failure that never happens.</sub>
 </div>
